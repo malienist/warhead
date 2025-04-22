@@ -1,7 +1,7 @@
 # Warhead
 
 **Warhead** is a Windows post-exploitation payload launcher that leverages the Windows Atom Table for shellcode storage and reconstruction, enabling stealthy execution without writing payloads to disk.
-
+![Warhead Banner](/img/warhead.webp)
 ## 🚀 Features
 
 - 🔬 Atom Table-based shellcode injection
