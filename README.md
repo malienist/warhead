@@ -25,7 +25,7 @@ This project is intended for **educational and research purposes** only. Use res
 ### Compilation (Example using cl.exe)
 
 ```sh
-cl.exe /nologo /O2 /W3 /D_CRT_SECURE_NO_WARNINGS warhead.c /link /OUT:WarHead.exe
+cl.exe /nologo /O2 /W3 /D_CRT_SECURE_NO_WARNINGS warhead.cpppp /link /OUT:WarHead.exe
 ```
 
 Or use the included `build.bat` if provided.
@@ -68,7 +68,7 @@ For a deep-dive analysis of the Atom Table technique and payload evasion, see th
 
 ```
 .
-├── warhead.c           # Main launcher source code
+├── warhead.cpp           # Main launcher source code
 ├── README.md           # This file
 ├── LICENSE             # Licensing information
 └── build.bat           # Optional build script for Windows
