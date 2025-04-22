@@ -76,7 +76,7 @@ For a deep-dive analysis of the Atom Table technique and payload evasion, see th
 
 ## 🧠 Credits
 
-Created by [Your Name or Handle](https://github.com/yourhandle)  
+Created by Malienist (https://github.com/malienist)  
 Inspired by Atom Bombing and novel in-memory execution techniques.
 
 ## 📜 License
