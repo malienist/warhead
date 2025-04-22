@@ -64,8 +64,7 @@ Warhead utilizes the Global Atom Table to:
 
 ## 🔍 Analysis
 
-For a deep-dive analysis of the Atom Table technique and payload evasion, see the [blog post](https://example.com) or [BlackHat Arsenal 2025 presentation](https://example.com/warhead-arsenal).
-
+For a deep-dive analysis of the Atom Table technique and payload evasion, see the [blog post](https://malienist.medium.com)
 ## 📁 Project Structure
 
 ```
