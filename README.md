@@ -10,7 +10,7 @@
 - 🧬 Fully dynamic reconstruction and decoding
 - 🧱 Minimal memory footprint
 - 🕵️ Designed for evasion and stealth
-- ⚙️ Written in C for low-level control
+- ⚙️ Written in Cpp for low-level control
 
 ## ⚠️ Disclaimer
 
