@@ -149,23 +149,6 @@ Writes to Atom Table, finds a remote target, injects and executes all in one go.
 
 ---
 
-## 📁 File Structure
-
-```
-├── img/
-│   └── warhead.webp               # Project logo
-├── src/
-│   ├── main.cpp                   # Main launcher logic
-│   ├── injector.cpp               # Process injection functions
-│   ├── apc.cpp                    # APC scheduling logic
-│   ├── uac_bypass.cpp             # fodhelper.exe launcher
-│   └── utils.cpp                  # Helper and debug utilities
-├── README.md
-└── LICENSE
-```
-
----
-
 ## ❗ Disclaimer
 
 > This tool is provided **for educational and research purposes only**. Do not use it on systems you do not own or have explicit permission to test.
