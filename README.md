@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="img/warhead.webp" width="600" alt="Warhead Logo">
+  <img src="img/warhead.webp" width="800" alt="Warhead Logo">
 </p>
 
 <h1 align="center">Warhead</h1>
