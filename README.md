@@ -21,6 +21,7 @@
 - Local and remote process injection (via direct memory write or APC)
 - Hybrid UAC bypass payload launchers (e.g., via `fodhelper.exe`)
 - Stealthy dropper/loader combinations with cross-session support
+- Benign option built-in (launch calc) 
 
 This project aims to showcase Atom-based payload delivery and execution as an evasion mechanism that abuses legitimate Windows APIs.
 
