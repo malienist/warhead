@@ -41,6 +41,18 @@ A diagnostic binary that simulates shellcode staging and payload extraction from
 ### `warhead-shellcode-injection.exe`
 A full injector binary that pulls shellcode from the Atom Table and injects it into a specified process (either via `WriteProcessMemory` or `QueueUserAPC`). Requires appropriate privileges to target processes.
 
+--- 
+
+### `warhead.exe`
+The primary all-in-one binary that performs every stage of the Atom Table attack chain. It supports:
+- Atom writing (`GlobalAddAtom`)
+- Process discovery
+- Shellcode injection (`WriteProcessMemory`, `QueueUserAPC`)
+- UAC bypass via `fodhelper.exe`
+- Execution triggering
+
+Ideal for end-to-end payload deployment without relying on separate components.
+
 ---
 
 ## 📌 Notes
