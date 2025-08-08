@@ -1,4 +1,5 @@
 // Atom Table Injector: One-file C++ program to write, retrieve, and inject an Atom-based command ('cmd /c start calc.exe') into Notepad
+// DEFCON 33
 
 #include <windows.h>
 #include <tlhelp32.h>
