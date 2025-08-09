@@ -15,6 +15,8 @@
 
 ## 🔍 Overview
 
+DEFCON33\Blackhat 2025 release is now out - download the first public version here: 
+
 **Warhead** is a proof-of-concept offensive security toolkit that explores novel methods of Windows shellcode injection using the **Atom Table**, including:
 
 - Shellcode storage and retrieval via `GlobalAddAtom` / `GetAtomName`
