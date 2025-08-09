@@ -8,8 +8,13 @@ All binaries will be made available once **Warhead** is officially released.
 ---
 
 ## 📦 Included Binaries
-### warhead-injection.exe
+### warhead-inject-notepad.exe - this is all you should need for most of your red-teaming tasks
 This one will put your cmd into the atom table, use notepad to retrieve it and then execute it. 
+
+### warhead-launcher.exe
+Put your code into the atom table, add entries to the registry and have the system reaady for your dropper (if using one). 
+
+
 
 ## More will be added soon, just let us get back from Blackhat/DEF CON :) and deal with the jetlag for a couple of day! 
 
