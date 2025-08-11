@@ -170,6 +170,8 @@ Inspired by public Atom Table and UAC bypass research
 
 We’re always looking for talented security researchers, red teamers, and reverse engineers to help **develop new techniques** or **improve existing ones**.
 
+<img src="img/crew.webp" alt="Warhead Crew T-Shirt" width="300">
+
 **Why contribute?**
 - Collaborate with a crew of experienced offensive security specialists.
 - Get exclusive **Warhead Crew t-shirts**.
