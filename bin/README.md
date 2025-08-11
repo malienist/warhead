@@ -82,5 +82,43 @@ warhead-injection.exe
 
 This code is provided for **educational and research purposes** under proper authorization. The authors and contributors are **not responsible** for misuse.
 
+# warhead-wrapper.exe
+
+**Purpose:** Elevates and executes the **WarHead.exe** dropper using a UAC bypass via `fodhelper.exe`.  
+**Technique:** Registry hijack of `HKCU\Software\Classes\ms-settings\Shell\Open\command` combined with the `DelegateExecute` trick to trigger elevated execution without prompting the user.
+
+> ⚠️ **For authorized security testing and research only.** Unauthorized use is illegal and unethical.
+
+---
+
+## How it works (high-level)
+
+1. **Resolve Dropper Path:**  
+   - The wrapper assumes `WarHead.exe` is in the same directory.
+   - Uses `GetFullPathNameA` to resolve the absolute path.
+
+2. **Set Registry Keys for UAC Bypass:**  
+   - Adds the full path to `WarHead.exe` as the default value for:
+     ```
+     HKCU\Software\Classes\ms-settings\Shell\Open\command
+     ```
+   - Creates an empty `DelegateExecute` value under the same key to suppress UAC prompts.
+
+3. **Trigger Auto-Elevation:**  
+   - Disables Wow64 filesystem redirection (for 32-bit process compatibility on 64-bit Windows).
+   - Launches `fodhelper.exe` with `ShellExecuteA`, which will read the hijacked registry keys and run `WarHead.exe` elevated.
+
+4. **Cleanup:**  
+   - Restores Wow64 redirection after launch.
+   - Displays execution success or failure status.
+
+---
+
+## Build
+
+- **Toolchain:** Visual Studio (cl.exe) / C++17 or later  
+- **Example (Developer Command Prompt):**
+  ```powershell
+  cl.exe /nologo /O2 /W3 /D_CRT_SECURE_NO_WARNINGS warhead-wrapper.cpp /link /OUT:warhead-wrapper.exe
 
 
