@@ -1,5 +1,5 @@
 
-# 🔧 Warhead Binaries Overview
+# Warhead Binaries Overview
 
 This page provides a description of the key binaries included in the Warhead toolkit. These tools enable different methods of Atom Table-based payload injection, execution, and privilege escalation.
 
