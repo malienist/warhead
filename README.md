@@ -166,6 +166,26 @@ Inspired by public Atom Table and UAC bypass research
 
 ---
 
+## Join the Warhead Crew
+
+We’re always looking for talented security researchers, red teamers, and reverse engineers to help **develop new techniques** or **improve existing ones**.
+
+**Why contribute?**
+- Collaborate with a crew of experienced offensive security specialists.
+- Get exclusive **Warhead Crew t-shirts**.
+- Opportunity to **present your techniques at major infosec conferences** (with full credit).
+- Shape the future of payload execution research and red team tooling.
+
+---
+
+💡 **How to get involved**
+1. Fork the repo and start building.
+2. Submit a Pull Request with your technique, PoC, or improvement.
+3. Join discussions on the roadmap and future features.
+
+**Your skills + our platform = better red team capabilities for authorized testing.**
+
+
 ## To Do
 
 - [ ] Add syscall-based injection fallback
