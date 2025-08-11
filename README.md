@@ -14,7 +14,7 @@
 ---
 
 ## 🔍 Overview
-<img src="img/bhusa25.webp" alt="Description" height="100">
+<img src="img/bhusa25.webp" alt="Description" height="100"> <img src="img/defcon33.jpg" alt="Description" height="100">
 
 DEFCON33\Blackhat 2025 release is now out - download the first public version here: 
 
