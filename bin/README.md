@@ -121,4 +121,114 @@ This code is provided for **educational and research purposes** under proper aut
   ```powershell
   cl.exe /nologo /O2 /W3 /D_CRT_SECURE_NO_WARNINGS warhead-wrapper.cpp /link /OUT:warhead-wrapper.exe
 
+# warhead-simple-atom-writer.exe
+
+A tiny demo binary that writes an arbitrary string into the **Windows Atom Table** and prints the resulting **Atom ID**. Handy for labs where you want to stash a short command or marker and retrieve it later with `GetAtomName`/`GlobalGetAtomName` (or from a cooperating process).
+
+> ⚠️ **For research and defensive testing in controlled environments only.** This repo documents OS internals and dual-use techniques. Use responsibly and legally.
+
+---
+
+## What this does (in one breath)
+
+- Parses the command you pass on the CLI (e.g., `cmd /c start calc.exe`),  
+- Checks it’s ≤ 255 characters (Windows atom names are capped),  
+- Calls `AddAtomA` to place it into the **process-local** atom table,  
+- Prints the numeric **Atom ID** so you can reference it later.
+
+> **Note:** If you need cross-process or cross-session visibility, use `GlobalAddAtomA` instead of `AddAtomA`. This sample intentionally uses `AddAtomA` to keep the demo minimal and self-contained.
+
+---
+
+## Usage
+
+```txt
+warhead-simple-atom-writer.exe "cmd /c start calc.exe"
+
+# warhead-simple-atom-writer.exe
+
+A tiny demo binary that writes an arbitrary string into the **Windows Atom Table** and prints the resulting **Atom ID**. Handy for labs where you want to stash a short command or marker and retrieve it later with `GetAtomName`/`GlobalGetAtomName` (or from a cooperating process).
+
+> ⚠️ **For research and defensive testing in controlled environments only.** This repo documents OS internals and dual-use techniques. Use responsibly and legally.
+
+---
+
+## What this does (in one breath)
+
+- Parses the command you pass on the CLI (e.g., `cmd /c start calc.exe`),  
+- Checks it’s ≤ 255 characters (Windows atom names are capped),  
+- Calls `AddAtomA` to place it into the **process-local** atom table,  
+- Prints the numeric **Atom ID** so you can reference it later.
+
+> **Note:** If you need cross-process or cross-session visibility, use `GlobalAddAtomA` instead of `AddAtomA`. This sample intentionally uses `AddAtomA` to keep the demo minimal and self-contained.
+
+---
+
+## Usage
+
+```txt
+warhead-simple-atom-writer.exe "cmd /c start calc.exe"
+```
+
+**Output (example):**
+```
+Stored command in Atom Table.
+Atom ID: 49367
+```
+
+You can treat that integer as the handle to your stored string. Another tool (or the same process) can retrieve the value via `GetAtomNameA` (or `GlobalGetAtomNameA` if you stored it with `GlobalAddAtomA`).
+
+---
+
+## Build
+
+### MSVC (Developer Command Prompt)
+```bat
+cl /nologo /O2 /EHsc /MT /DUNICODE=0 /D_UNICODE=0 warhead-simple-atom-writer.cpp user32.lib
+```
+
+### MinGW-w64
+```bash
+g++ -O2 -static -s -o warhead-simple-atom-writer.exe warhead-simple-atom-writer.cpp
+```
+
+> The sample uses ANSI (`AddAtomA`) for simplicity. If you switch to wide chars, adjust types and calls accordingly.
+
+---
+
+> **If you truly want the Global Atom Table:** replace `AddAtomA` with `GlobalAddAtomA`, and consumers should use `GlobalGetAtomNameA` to retrieve.
+
+---
+
+## Limitations & Notes
+
+- **Size cap:** Atom names are limited to **255 characters** (not including the null terminator). This tool hard-fails beyond that.
+- **Scope:** `AddAtomA` writes to the **local** atom table (scoped to the current process). Use `GlobalAddAtomA` for a system-wide/global atom.
+- **Collisions:** If the same string already exists in the target atom table, Windows returns the existing Atom ID.
+- **Case-insensitive:** Atom names are case-insensitive; `"Calc"` and `"calc"` map to the same atom.
+
+---
+
+## Troubleshooting
+
+- **`AddAtom failed: 5` or other error codes:** Ensure you’re using the correct API (`AddAtomA` vs `GlobalAddAtomA`) for your intended scope, and that your string respects the length constraint.
+- **Can’t retrieve the value from another process:** You likely used `AddAtomA` (local). Store with `GlobalAddAtomA` if a different process must read it.
+
+---
+
+## Related binaries (in this repo)
+
+- `warhead-simple-atom-reader.exe` – look up an Atom ID and print the stored string.  
+- `warhead-atom-exec-demo.exe` – retrieve an Atom and `WinExec` the stored command (for lab demos).  
+- `warhead-*` family – end-to-end lab tooling around Windows Atom Table behaviors.
+
+---
+
+## Safety, Detection & Mitigation (high level)
+
+- **Blue team note:** Atoms show up via `GlobalGetAtomName`/`GetAtomName`; monitor for unusual creation spikes or suspicious strings.  
+- **Hygiene:** Constrain who can write/read global atoms, and watch for tools that bridge atoms into execution paths.  
+- **AppControl:** Standard allow-listing and command-line auditing will still catch most “write-then-execute” patterns even if an atom is used as transient storage.
+
+---
 
