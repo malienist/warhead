@@ -6,21 +6,81 @@ This page provides a description of the key binaries included in the Warhead too
 All binaries will be made available once **Warhead** is officially released.
 
 ---
+# warhead-injection.exe
 
-## 📦 Included Binaries
-### warhead-inject-notepad.exe - this is all you should need for most of your red-teaming tasks
-This one will put your cmd into the atom table, use notepad to retrieve it and then execute it. 
+**Purpose:** Injects an Atom Table–retrieved command into a target process and executes it via a remote thread.  
+**Default target:** `notepad.exe` (first running instance found if no PID is provided in future versions).
 
-### warhead-launcher.exe
-Put your code into the atom table, add entries to the registry and have the system reaady for your dropper (if using one). 
+> ⚠️ **For authorized security testing and research only.** Use on systems you own or have explicit permission to test.
 
+---
 
+## How it works (high-level)
 
-## More will be added soon, just let us get back from Blackhat/DEF CON :) and deal with the jetlag for a couple of day! 
+1. **Create Atom:** Writes a command string to the Windows Atom Table with `AddAtomA`  
+   - Default command in the sample: `cmd /c start calc.exe`
+2. **Retrieve Atom:** Reads the stored command back with `GetAtomNameA`
+3. **Resolve API:** Locates `WinExec` from `kernel32.dll`
+4. **Select Target:** Finds the first running `notepad.exe` and opens it with `OpenProcess`
+5. **Stage Payload:** Allocates memory in the target (`VirtualAllocEx`) and writes the command (`WriteProcessMemory`)
+6. **Execute:** Creates a remote thread at `WinExec`, passing the staged command as the parameter
 
-## 📜 License & Usage
+---
 
-> For educational and research purposes only.  
-> Do not use these tools on any system without explicit permission.
+## Build
+
+- **Toolchain:** Visual Studio (cl.exe) / C++17 or later  
+- **Example (Developer Command Prompt):**
+  ```powershell
+  cl.exe /nologo /O2 /W3 /D_CRT_SECURE_NO_WARNINGS warhead-injection.cpp /link /OUT:warhead-injection.exe
+  ```
+
+> Note: The sample includes `<windows.h>`, `<tlhelp32.h>`, `<iostream>`, `<vector>`, `<string>`.
+
+---
+
+## Usage
+
+```powershell
+warhead-injection.exe
+```
+
+- Current sample auto-selects **Notepad** as the target.  
+- The command executed is the one written to the Atom Table within the binary (e.g., `cmd /c start calc.exe` in the sample).  
+- Future variants may support `PID` and custom command/Atom parameters via CLI.
+
+**Sample Output**
+```
+[+] Atom created with ID: 49367
+[+] Retrieved command from Atom: cmd /c start calc.exe
+[+] Found Notepad PID: 1234
+[+] Atom command executed from Notepad.
+```
+
+---
+
+## Expected behavior & caveats
+
+- **Parent/child process tree:** The spawned process (e.g., `calc.exe`) may show **`cmd.exe`** or the **target process** as parent depending on how the command is executed and environment.  
+- **Access rights:** `OpenProcess(PROCESS_ALL_ACCESS, …)` requires sufficient privileges. Standard users may fail opening elevated or protected processes.  
+- **AV/EDR:** Remote thread creation and cross-process memory writes are commonly monitored. Use only in permitted lab/test conditions.
+
+---
+
+## Blue team notes (defense)
+
+- Monitor for:
+  - `AddAtomA` / `GetAtomNameA` use with suspicious strings
+  - Cross-process `VirtualAllocEx`/`WriteProcessMemory`
+  - `CreateRemoteThread` into non-child processes
+  - `WinExec`/`CreateProcess*` from unusual call stacks in GUI processes (e.g., `notepad.exe`)
+- Consider policy restrictions and alerting on unexpected process trees (e.g., Notepad launching shells).
+
+---
+
+## Disclaimer
+
+This code is provided for **educational and research purposes** under proper authorization. The authors and contributors are **not responsible** for misuse.
+
 
 
